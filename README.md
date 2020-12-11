@@ -20,8 +20,10 @@ Entregables
   9.Cómo usuario quiero agregar comentarios en cada tarea para poder comunicarme conlos miembros o responsables.
   
   Tablas
+  
   ●Usuarios
 ○Nombres (Texto)○Apellidos (Texto)○Correo (Texto)○Contraseña (Texto)
+
 ●Tableros○Nombre (Texto)○Descripción (Texto)○Fecha de creación (Fecha y hora)○Dueño (Llave foránea)○Favorito (Muchos a muchos)○Visibilidad (Texto, selección)○Miembros (Muchos a muchos)
 ●Listas○Nombre (Texto)○Tablero (Llave foránea)○Fecha de creación (Fecha y hora)○Posición (Entero)
 Tarjetas○Nombre (Texto)○Lista (Llave foránea)○Descripción (texto)○Miembros (Muchos a muchos)○Dueño (Llave foránea)○Fecha de creación (Fecha y hora)○Fecha de vencimiento (Fecha y hora)○Posición (Entero)
@@ -30,6 +32,7 @@ Tarjetas○Nombre (Texto)○Lista (Llave foránea)○Descripción (texto)○Miem
 ●Base de datos Postgres.*
 ●Pruebas unitarias.
 ●Generar documentación.
+
 ●Endpoints y actions
 
 
