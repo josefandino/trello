@@ -6,5 +6,5 @@ from .models import Board
 from .serializers import BoardSerializers
 
 class BoardViewSet(viewsets.ModelViewSet):
-   queryset = Board.objects.all()
-   serializer_class = BoardSerializers
+    queryset = Board.objects.all()
+    serializer_class = BoardSerializers
