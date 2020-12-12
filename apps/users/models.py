@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+
 class User(models.Model):
    name = models.CharField(max_length=120, blank=False, null=False)
    lastname = models.CharField(max_length=120, blank=False, null=False)

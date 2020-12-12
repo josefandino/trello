@@ -1,10 +1,34 @@
 from django.shortcuts import render
 
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from .models import Board
 from .serializers import BoardSerializers
+from ..users.serializers import UserSerializer
+
 
 class BoardViewSet(viewsets.ModelViewSet):
-   queryset = Board.objects.all()
-   serializer_class = BoardSerializers
+    queryset = Board.objects.all()
+    serializer_class = BoardSerializers
+
+    @action(methods=['GET', 'POST', 'DELETE'], detail=True)
+    def user(self, request, pk=None):
+        board = self.get_object()
+
+        if request.method == 'GET':
+            serializer = UserSerializer(board.user, many=True)
+            return Response(status=status.HTTP_200_OK, data=serializer.data)
+        if request.method == 'POST':
+            user_id = request.data['users_id']
+            for user in user_id:
+                user.objects.get(id=int(user))
+                board.suer.add(board)
+            return Response(status=status.HTTP_200_OK)
+        if request.method == 'DELETE':
+            user_id = request.data['users_id']
+            for user in user_id:
+                user.objects.get(id=int(user))
+                board.user.remove(board)
+            return Response(status=status.HTTP_200_OK)
