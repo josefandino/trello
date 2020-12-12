@@ -32,13 +32,13 @@ Entregables
   Tablas
   
   ● Usuarios
-
-○ Nombres (Texto)
-○ Apellidos (Texto)
-○ Correo (Texto)
-○ Contraseña (Texto)
-
-● Tableros
+  
+  ○ Nombres (Texto)
+  ○ Apellidos (Texto)
+  ○ Correo (Texto)
+  ○ Contraseña (Texto)
+  
+  ● Tableros
   ○ Nombre (Texto)
   ○ Descripción (Texto)
   ○ Fecha de creación (Fecha y hora)
@@ -46,31 +46,35 @@ Entregables
   ○ Favorito (Muchos a muchos)
   ○ Visibilidad (Texto, selección)
   ○ Miembros (Muchos a muchos)
+  
+  ● Listas
+    ○ Nombre (Texto)
+    ○ Tablero (Llave foránea) 
+    ○ Fecha de creación (Fecha y hora)
+    ○ Posición (Entero)
+  
+  Tarjetas
+    ○ Nombre (Texto) 
+    ○ Lista (Llave foránea) 
+    ○ Descripción (texto)
+    ○ Miembros (Muchos a muchos)
+    ○ Dueño (Llave foránea)
+    ○ Fecha de creación (Fecha y hora)
+    ○ Fecha de vencimiento (Fecha y hora)
+    ○ Posición (Entero)
+  
+  ● Comentarios
+    ○ Tarjeta (Llave foránea)
+    ○ Mensaje (Texto)
+    ○ Dueño (Llave foránea)
+    ○ Fecha de creación (Fecha y hora)
 
-● Listas
-  ○ Nombre (Texto)
-  ○ Tablero (Llave foránea) 
-  ○ Fecha de creación (Fecha y hora)
-  ○ Posición (Entero)
-
-Tarjetas○ Nombre (Texto) 
-  ○ Lista (Llave foránea) 
-  ○ Descripción (texto)
-  ○ Miembros (Muchos a muchos)
-  ○ Dueño (Llave foránea)
-  ○ Fecha de creación (Fecha y hora)
-  ○ Fecha de vencimiento (Fecha y hora)
-  ○ Posición (Entero)
-
-● Comentarios
-  ○ Tarjeta (Llave foránea)
-  ○ Mensaje (Texto)○Dueño (Llave foránea)
-  ○ Fecha de creación (Fecha y hora)
+  
   
   Consideraciones generales
 
-  ● Envío de correos para notificaciones*  
-  ● Base de datos Postgres.*
-  ● Pruebas unitarias.
-  ● Generar documentación.
-  ● Endpoints y actions
+    ● Envío de correos para notificaciones*  
+    ● Base de datos Postgres.*
+    ● Pruebas unitarias.
+    ● Generar documentación.
+    ● Endpoints y actions
