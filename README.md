@@ -11,14 +11,22 @@ Entregables
   Historias de usuario
 
   1. Cómo usuario quiero registrarme a la plataforma para crear mi primer tablero.
+
   2. Cómo usuario quiero crear un tablero desde la página principal para gestionar unproyecto.
+
   3. Cómo usuario quiero ver la lista de mis tableros y distinguir aquellos seleccionadoscomo favoritos.
+
   4. Como usuario quiero invitar a otros usuarios (registrados y no registrados) comomiembros del tablero para que puedan acceder a ese proyecto. 
   Pero no pueden editarlos detalles del mismo, únicamente agregar elementos.
+
   5. Cómo usuario quiero agregar listas a mi tablero para agregar tareas a cada una.
+
   6. Cómo usuario quiero ordenar mis listas para tener mejor control de mi proyecto.
+
   7. Cómo usuario quiero agregar tarjetas a cada lista para poder asignar responsables decada una.
+
   8. Cómo usuario quiero asignar miembros o responsables de cada tarea para que leslleguen notificaciones.
+
   9. Cómo usuario quiero agregar comentarios en cada tarea para poder comunicarme conlos miembros o responsables.
   
   Tablas
@@ -26,7 +34,9 @@ Entregables
   ● Usuarios
 
 ○ Nombres (Texto)
-○ Apellidos (Texto)○Correo (Texto)○Contraseña (Texto)
+○ Apellidos (Texto)
+○ Correo (Texto)
+○ Contraseña (Texto)
 
 ● Tableros
   ○ Nombre (Texto)
