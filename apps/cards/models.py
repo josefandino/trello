@@ -1,5 +1,8 @@
 from django.db import models
+
 from django.utils import timezone
+from ..users.models import User
+from ..list.models import List
 
 
 class Card(models.Model):
@@ -8,8 +11,9 @@ class Card(models.Model):
     timestamp = models.DateTimeField(default=timezone.now)
     expiration_date = models.DateTimeField(default=timezone.now)
     position = models.IntegerField(default=None)
+
     members = models.ManyToManyField(User, related_name='card')
-    list = models.ForeignKey(List, on_delete=models.CASCADE)
+    list = models.ForeignKey(List, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.name

@@ -31,9 +31,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #aplication de terceros
+    'rest_framework',
 
     #Aplications local
-    'apps.home',
+    'apps.boards',
+    'apps.comments',
+    'apps.list',
+    'apps.users',
+    'apps.cards',
 ]
 
 MIDDLEWARE = [

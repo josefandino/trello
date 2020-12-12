@@ -1,11 +1,16 @@
 from django.db import models
 from django.utils import timezone
+from ..users.models import User
+from ..cards.models import Card
+from ..list.models import List
 
-class Comments(Models.Model):
+class Comments(models.Model):
+   message = models.CharField(max_length=150)
    timestamp = models.DateTimeField('Fecha registro', default=timezone.now)
 
-# ● Comentarios
-#     ○ Tarjeta (Llave foránea)
-#     ○ Mensaje (Texto)
-#     ○ Dueño (Llave foránea)
-#     ○ Fecha de creación (Fecha y hora)
+   members = models.ManyToManyField(User, related_name='comments')
+   card = models.ManyToManyField(Card, related_name='comments')
+   list = models.ForeignKey(List, on_delete=models.PROTECT)
+
+   def __str__(self):
+      return self.message
