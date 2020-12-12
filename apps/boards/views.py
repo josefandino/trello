@@ -14,11 +14,7 @@ class BoardViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     serializer_class = BoardSerializers
 
-<<<<<<< HEAD
-    @action(methods=['GET', 'POST', 'DELETE'], detail=True, url_path='table_users')
-=======
     @action(methods=['GET', 'POST', 'DELETE'], detail=True, url_path='tablas_usuario')
->>>>>>> 2f805848905db5a6c10f2f9d20527dc27bab43f9
     def user(self, request, pk=None):
         board = self.get_object()
 
