@@ -1,9 +1,6 @@
 
 
-<<<<<<< HEAD
-=======
 #from .db import db
->>>>>>> 2f805848905db5a6c10f2f9d20527dc27bab43f9
 import os
 from pathlib import Path
 
@@ -84,16 +81,12 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-<<<<<<< HEAD
-DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'), }}
-=======
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
->>>>>>> 2f805848905db5a6c10f2f9d20527dc27bab43f9
 
 
 # Password validation
