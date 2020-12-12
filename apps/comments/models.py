@@ -4,7 +4,7 @@ from ..users.models import User
 from ..cards.models import Card
 from ..list.models import List
 
-class Comments(models.Model):
+class Comment(models.Model):
    message = models.CharField(max_length=150)
    timestamp = models.DateTimeField('Fecha registro', default=timezone.now)
 
