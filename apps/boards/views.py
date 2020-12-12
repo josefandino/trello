@@ -5,13 +5,13 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .models import Board
-from .serializers import BoardSerializers
+from .serializers import BoardSerializer
 from ..users.serializers import UserSerializer
 
 
 class BoardViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
-    serializer_class = BoardSerializers
+    serializer_class = BoardSerializer
 
     @action(methods=['GET', 'POST', 'DELETE'], detail=True, url_path='tablas_usuario')
     def user(self, request, pk=None):
