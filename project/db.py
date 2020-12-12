@@ -1,4 +1,4 @@
-db = {
+"""db = {
    'default': {
       'ENGINE': 'django.db.backends.postgresql_psycopg2',
       'NAME': 'trello',
@@ -7,4 +7,4 @@ db = {
       'HOST': 'localhost',
       'PORT': '5432',
    }
-}
+}"""
