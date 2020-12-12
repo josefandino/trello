@@ -9,7 +9,7 @@ class Board(models.Model):
    timestamp = models.DateTimeField(default=timezone.now)
    visibility = models.BooleanField(default=False)
 
-   # favorite = models.ManyToManyField(favoriteBoard)
+#    favorite = models.ManyToManyField(favoriteBoard)
 
    members = models.ManyToManyField(User, related_name='board')
 
@@ -18,5 +18,6 @@ class Board(models.Model):
    
 # class FavoriteBorad(models.models):
 #    favorite = models.IntegerField(default=None)
+
 
 
