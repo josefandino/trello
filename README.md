@@ -78,3 +78,18 @@ Entregables
     ● Pruebas unitarias.
     ● Generar documentación.
     ● Endpoints y actions
+
+
+# configuracion: 
+  ● En la carpeta project se debe crear un archivo db.py 
+  ● importamos estas librerias: os y pathlib
+
+        BASE_DIR = Path(__file__).resolve().parent.parent
+      db = {
+          'default': {
+              'ENGINE': 'django.db.backends.sqlite3',
+              'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+          }
+      }
+
+  ● DATABASES = db
