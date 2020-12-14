@@ -5,6 +5,6 @@ from .views import UserViewSet
 
 router = DefaultRouter()
 
-router.register(r'viewset', UserViewSet)
+router.register(r'', UserViewSet)
 
 urlpatterns = router.urls
