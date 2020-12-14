@@ -1,7 +1,6 @@
-
-
-from .db import db
 import os
+from .db import db
+# import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
