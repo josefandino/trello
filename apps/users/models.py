@@ -4,6 +4,8 @@ from django.contrib.auth.models import (
 )
 from django.utils.translation import gettext as _
 from rest_framework_simplejwt.tokens import RefreshToken
+
+
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None):
         if username is None:
@@ -26,6 +28,7 @@ class UserManager(BaseUserManager):
         user.save()
         return user
 
+
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255, unique=True, db_index=True)
     email = models.EmailField(max_length=255, unique=True, db_index=True)
@@ -41,10 +44,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELD = []
 
     objects = UserManager()
-    
-    def __str__(self): 
+
+    def __str__(self):
         return '{0},{1}'.format(self.name, self.lastname)
-        
+
     def tokens(self):
         refresh = RefreshToken.for_user(self)
         return {
