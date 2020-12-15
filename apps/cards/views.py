@@ -6,7 +6,12 @@ from rest_framework.decorators import action
 from ..list.models import List
 from .models import Card
 from .serializers import CardSerializer
+<<<<<<< HEAD
 from ..list.serializers import ListSerializers
+=======
+from ..list.models import List
+
+>>>>>>> 6fb12cba104aac300e8faf4695f9f1b204599f04
 
 class CardViewSet(viewsets.ModelViewSet):
     queryset = Card.objects.all()
@@ -16,6 +21,30 @@ class CardViewSet(viewsets.ModelViewSet):
     # def list(self, request, pk=None):
     #     card = self.get_object()
 
+<<<<<<< HEAD
         # if request.method == 'GET':
         #     serialized = ListSerializers(List.card, many=True)
         #     return Response(status=status.HTTP_200_OK, data=serialized.data)
+=======
+    @action(methods=['GET', 'POST', 'DELETE'], detail=True)
+    def list_add(self, request, pk='None'):
+        card = self.get_object()
+
+        if request.method == 'GET':
+            serializer = ListSerializer(card.list)
+            return Response(status=status.HTTP_200_OK, data=serializer.data)
+
+        if request.method == 'POST':
+            list_id = request.data['list_id']
+            for lists in list_id:
+                list = List.objects.get(id=int(lists))
+                card.list.add(list)
+            return Response(status=status.HTTP_200_OK)
+
+        if request.method == 'DELETE':
+            list_id = request.data['list_id']
+            for lists in list_id:
+                list = List.objects.get(id=int(lists))
+                card.list.remove(list)
+            return Response(status=status.HTTP_200_OK)
+>>>>>>> 6fb12cba104aac300e8faf4695f9f1b204599f04
