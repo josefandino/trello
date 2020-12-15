@@ -1,5 +1,3 @@
-/project/db
-/project/settings.py
 env
 venv
 __pycache__
