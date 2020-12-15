@@ -18,7 +18,7 @@ class CardViewSet(viewsets.ModelViewSet):
     def list_add(self, request, pk='None'):
         card = self.get_object()
 
-        if request.mehotd == 'GET':
+        if request.method == 'GET':
             serializer = ListSerializer(card.list)
             return Response(status=status.HTTP_200_OK, data=serializer.data)
 
