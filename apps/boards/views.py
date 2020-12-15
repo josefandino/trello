@@ -27,25 +27,15 @@ class BoardViewSet(viewsets.ModelViewSet):
         if request.method == 'POST':
             user_id = request.data['users_id']
             for user in user_id:
-<<<<<<< HEAD
-                User.objects.get(id=int(user))
-                board.suer.add(board)
-=======
                 user = User.objects.get(id=int(user))
                 board.members.add(user)
->>>>>>> 6fb12cba104aac300e8faf4695f9f1b204599f04
             return Response(status=status.HTTP_200_OK)
 
         if request.method == 'DELETE':
             user_id = request.data['users_id']
             for user in user_id:
-<<<<<<< HEAD
-                User.objects.get(id=int(user))
-                board.user.remove(board)
-=======
                 user = User.objects.get(id=int(user))
                 board.members.remove(user)
->>>>>>> 6fb12cba104aac300e8faf4695f9f1b204599f04
             return Response(status=status.HTTP_200_OK)
 
 

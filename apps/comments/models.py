@@ -15,11 +15,5 @@ class Comment(models.Model):
     card = models.ManyToManyField(Card, related_name='comments')
     list = models.ForeignKey(List, on_delete=models.PROTECT)
 
-<<<<<<< HEAD
     def __str__(self):
         return self.message
-=======
-   def __str__(self):
-      return self.message
-
->>>>>>> 6fb12cba104aac300e8faf4695f9f1b204599f04
