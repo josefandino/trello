@@ -9,15 +9,16 @@ class Board(models.Model):
    timestamp = models.DateTimeField(default=timezone.now)
    visibility = models.BooleanField(default=False)
 
-#    favorite = models.ManyToManyField(favoriteBoard)
+   #favorite = models.ManyToManyField(User, through="FavoriteBoard", related_name='board')
 
    members = models.ManyToManyField(User, related_name='board')
 
    def __str__(self):
        return self.name
-   
-# class FavoriteBorad(models.models):
-#    favorite = models.IntegerField(default=None)
+
+
+#class FavoriteBorad(models.models):
+ #  favorite = models.IntegerField(default=None)
 
 
 
