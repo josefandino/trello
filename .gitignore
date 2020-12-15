@@ -3,12 +3,9 @@ venv
 __pycache__/
 *.py[cod]
 .ideaenv
-venv
 .idea
 
-project/db.py
 apps/boards/migrations*
 apps/comments/migrations*
 apps/list/migrations*
-apps/users/migrations*
 apps/cards/migrations*
