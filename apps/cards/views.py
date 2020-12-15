@@ -6,13 +6,13 @@ from rest_framework.decorators import action
 from ..list.models import List
 from .models import Card
 from .serializers import CardSerializer
-from ..list.serializers import ListSerializers
+from ..list.serializers import ListSerializer
 from ..list.models import List
 
 
 class CardViewSet(viewsets.ModelViewSet):
     queryset = Card.objects.all()
-    serializer_class = ListSerializers
+    serializer_class = ListSerializer
 
     # @action(methods=['GET'], detail=True)
     # def list(self, request, pk=None):
