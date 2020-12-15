@@ -4,5 +4,5 @@ from django.urls import path
 from .views import ListViewSet
 
 router = DefaultRouter()
-router.register(r'viewset', ListViewSet)
+router.register(r'', ListViewSet)
 urlpatterns = router.urls

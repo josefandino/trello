@@ -4,5 +4,5 @@ from django.urls import path
 from .views import CardViewSet
 
 router = DefaultRouter()
-router.register(r'viewset', CardViewSet)
+router.register(r'', CardViewSet)
 urlpatterns = router.urls

@@ -35,5 +35,3 @@ class BoardViewSet(viewsets.ModelViewSet):
                 User.objects.get(id=int(user))
                 board.user.remove(board)
             return Response(status=status.HTTP_200_OK)
-
-
