@@ -6,34 +6,34 @@ from rest_framework.response import Response
 
 from ..users.models import User
 from .models import Board
-from .serializers import BoardSerializers
+from .serializers import BoardSerializer
+from ..users.models import User
+
 from ..users.serializers import UserSerializer
 
 
 class BoardViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
-    serializer_class = BoardSerializers
+    serializer_class = BoardSerializer
 
-    @action(methods=['GET', 'POST', 'DELETE'], detail=True, url_path='user_table')
+    @action(methods=['GET', 'POST', 'DELETE'], detail=True)
     def user(self, request, pk=None):
         board = self.get_object()
 
         if request.method == 'GET':
-            serializer = UserSerializer(board.user, many=True)
+            serializer = UserSerializer(board.members, many=True)
             return Response(status=status.HTTP_200_OK, data=serializer.data)
 
         if request.method == 'POST':
             user_id = request.data['users_id']
             for user in user_id:
-                User.objects.get(id=int(user))
-                board.suer.add(board)
+                user = User.objects.get(id=int(user))
+                board.members.add(user)
             return Response(status=status.HTTP_200_OK)
 
         if request.method == 'DELETE':
             user_id = request.data['users_id']
             for user in user_id:
-                User.objects.get(id=int(user))
-                board.user.remove(board)
+                user = User.objects.get(id=int(user))
+                board.members.remove(user)
             return Response(status=status.HTTP_200_OK)
-
-

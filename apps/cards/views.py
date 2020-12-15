@@ -2,20 +2,25 @@ from django.shortcuts import render
 
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from ..cards.serializers import CardSerializer
 
-from ..list.models import List
+
 from .models import Card
 from .serializers import CardSerializer
-from ..list.serializers import ListSerializers
+from ..list.models import List
+
 
 class CardViewSet(viewsets.ModelViewSet):
     queryset = Card.objects.all()
-    serializer_class = ListSerializers
+    serializer_class = CardSerializer
 
-    # @action(methods=['GET'], detail=True)
-    # def list(self, request, pk=None):
-    #     card = self.get_object()
+    @action(methods=['GET', 'POST', 'DELETE'], detail=True)
+    def card(self, request, pk=None):
+        list = self.get_object()
 
-        # if request.method == 'GET':
-        #     serialized = ListSerializers(List.card, many=True)
-        #     return Response(status=status.HTTP_200_OK, data=serialized.data)
+        if request.method == 'GET':
+            serializer = CardSerializer(list.card)
+            return Response(status=status.HTTP_200_OK, data=serializer.data)
+
+        #if request.method == 'POST':
+
