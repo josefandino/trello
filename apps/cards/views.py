@@ -1,10 +1,9 @@
 from django.shortcuts import render
 
-from rest_framework import viewsets, status
+from rest_framework import viewsets
 from rest_framework.decorators import action
-from rest_framework.response import Response
-from rest_framework.serializers import ListSerializer
 
+from ..list.ListSerializer
 from .models import Card
 from .serializers import CardSerializer
 from ..list.models import List
@@ -12,7 +11,11 @@ from ..list.models import List
 
 class CardViewSet(viewsets.ModelViewSet):
     queryset = Card.objects.all()
-    serializer_class = CardSerializer
+    serializer_class = ListSerializers
+
+    # @action(methods=['GET'], detail=True)
+    # def list(self, request, pk=None):
+    #     card = self.get_object()
 
     @action(methods=['GET', 'POST', 'DELETE'], detail=True)
     def list_add(self, request, pk='None'):
