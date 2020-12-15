@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     #aplication de terceros
     'rest_framework',
     'corsheaders',  # new
+    'drf_yasg',
 
     #Aplications local
     'apps.boards',
