@@ -5,13 +5,13 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from .models import List
-from .serializers import ListSerializers
+from .serializers import ListSerializer
 from ..boards.serializers import BoardSerializer
 
 
 class ListViewSet(viewsets.ModelViewSet):
    queryset = List.objects.all()
-   serializer_class = ListSerializers
+   serializer_class = ListSerializer
 
    @action(methods=['GET', '´POST', 'DELETE'], detail=True, url_path='list_board')
    def board(self,request, pk=None):
