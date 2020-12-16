@@ -1,56 +1,73 @@
 from django.db import models
-from django.contrib.auth.models import (
-    AbstractBaseUser, BaseUserManager, PermissionsMixin
-)
-from django.utils.translation import gettext as _
-from rest_framework_simplejwt.tokens import RefreshToken
+# from django.contrib.auth.models import (
+#     AbstractBaseUser, BaseUserManager, PermissionsMixin
+# )
+from django.utils import timezone
+
+# from django.utils.translation import gettext as _
 
 
-class UserManager(BaseUserManager):
-    def create_user(self, username, email, password=None):
-        if username is None:
-            raise TypeError('Users should have a username')
-        if email is None:
-            raise TypeError('Users should have a Email')
+# from rest_framework_simplejwt.tokens import RefreshToken
+# class UserManager(BaseUserManager):
+#     def create_user(self, username, email, password=None):
+#         if username is None:
+#             raise TypeError('Users should have a username')
+#         if email is None:
+#             raise TypeError('Users should have a Email')
+#
+#         user = self.model(username=username, email=self.normalize_email(email))
+#         user.set_password(password)
+#         user.save()
+#         return user
+#
+#     def create_superuser(self, username, email, password=None):
+#         if password is None:
+#             raise TypeError('Password should not be none')
+#
+#         user = self.create_user(username, email, password)
+#         user.is_superuser = True
+#         user.is_staff = True
+#         user.save()
+#         return user
 
-        user = self.model(username=username, email=self.normalize_email(email))
-        user.set_password(password)
-        user.save()
-        return user
+# class User(AbstractBaseUser, PermissionsMixin):
+#     username = models.CharField(max_length=255, unique=True, db_index=True)
+#     email = models.EmailField(max_length=255, unique=True, db_index=True)
+#     name = models.CharField(max_length=120, blank=False, null=False)
+#     lastname = models.CharField(max_length=120, blank=False, null=False)
+#     is_verified = models.BooleanField(default=True)
+#     is_active = models.BooleanField(default=True)
+#     is_staff = models.BooleanField(default=False)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#
+#     USERNAME_FIELD = 'email'
+#     REQUIRED_FIELD = []
+#
+#     objects = UserManager()
+#
+#     def __str__(self):
+#         return '{0},{1}'.format(self.name, self.lastname)
+#
+#     def tokens(self):
+#         refresh = RefreshToken.for_user(self)
+#         return {
+#             'refresh': str(refresh),
+#             'access': str(refresh.access_token)
+#
 
-    def create_superuser(self, username, email, password=None):
-        if password is None:
-            raise TypeError('Password should not be none')
+# ○ Nombres
+# (Texto) ○
+# Apellidos (Texto)
+# ○ Correo (Texto)
+# ○ Contraseña (Texto)
 
-        user = self.create_user(username, email, password)
-        user.is_superuser = True
-        user.is_staff = True
-        user.save()
-        return user
-
-
-class User(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=255, unique=True, db_index=True)
-    email = models.EmailField(max_length=255, unique=True, db_index=True)
-    name = models.CharField(max_length=120, blank=False, null=False)
-    lastname = models.CharField(max_length=120, blank=False, null=False)
-    is_verified = models.BooleanField(default=True)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELD = []
-
-    objects = UserManager()
+class User(models.Model):
+    name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    email = models.EmailField()
+    password = models.CharField(max_length=200)
+    timestamp = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return '{0},{1}'.format(self.name, self.lastname)
-
-    def tokens(self):
-        refresh = RefreshToken.for_user(self)
-        return {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token)
-        }
+        return '{0},{1}'.format(self.last_name, self.name)

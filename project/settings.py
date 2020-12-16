@@ -18,7 +18,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'users.User'
+# AUTH_USER_MODEL = 'users.User'
 # Application definition
 
 INSTALLED_APPS = [
@@ -29,10 +29,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #aplication de terceros
-    'rest_framework',
-    'corsheaders',  # new
-    'drf_yasg',
+    # #aplication de terceros
+     'rest_framework',
+     'corsheaders',  # new
+     # 'drf_yasg',
 
     #Aplications local
     'apps.boards',
@@ -129,3 +129,8 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
+}
