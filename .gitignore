@@ -9,3 +9,5 @@ apps/boards/migrations*
 apps/comments/migrations*
 apps/list/migrations*
 apps/cards/migrations*
+db.sqlite3
+.env
