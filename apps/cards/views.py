@@ -26,7 +26,6 @@ class CardViewSet(viewsets.ModelViewSet):
             serializer = CardSerializer(list.card)
             return Response(status=status.HTTP_200_OK, data=serializer.data)
 
-        #if request.method == 'POST':
     @action(methods=['GET', 'POST', 'DELETE'], detail=True, url_path='userincard')
     def user(self, request, pk=None):
         card = self.get_object()
