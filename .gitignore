@@ -24,3 +24,4 @@ apps/comments/migrations*
 apps/list/migrations*
 apps/users/migrations*
 apps/cards/migrations*
+db.sqlite3
