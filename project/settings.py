@@ -18,7 +18,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = 'users.User'
+# AUTH_USER_MODEL = 'users.User'
 # Application definition
 
 INSTALLED_APPS = [
@@ -29,10 +29,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #aplication de terceros
-    'rest_framework',
-    'corsheaders',  # new
-    'drf_yasg',
+    # #aplication de terceros
+     'rest_framework',
+     'corsheaders',  # new
+     # 'drf_yasg',
 
     #Aplications local
     'apps.boards',
