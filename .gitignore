@@ -10,3 +10,4 @@ apps/comments/migrations*
 apps/list/migrations*
 apps/cards/migrations*
 db.sqlite3
+.env
