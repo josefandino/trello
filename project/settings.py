@@ -18,7 +18,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+# AUTH_USER_MODEL = 'users.User'
 # Application definition
 
 INSTALLED_APPS = [
@@ -29,9 +29,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #aplication de terceros
-    'rest_framework',
-    'corsheaders',  # new
+    # #aplication de terceros
+     'rest_framework',
+     'corsheaders',  # new
+     'drf_yasg',
 
     #Aplications local
     'apps.boards',
@@ -80,6 +81,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+
 DATABASES = db
 
 
@@ -127,3 +129,8 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
+}
