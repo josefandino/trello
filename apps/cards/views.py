@@ -40,6 +40,12 @@ class CardViewSet(viewsets.ModelViewSet):
             for user in user_id:
                 user = User.objects.get(id=int(user))
                 card.members.add(user)
+                #send correo
+                email_body = 'Hola '+user.name+' as sido invitado a la tarjeta '+card.name
+                data = {'email_body': email_body, 
+                        'to_email': user.email,
+                        'email_subject': 'Verify your email'}
+                Util.send_email(data)
             return Response(status=status.HTTP_200_OK)
 
         if request.method == 'DELETE':
