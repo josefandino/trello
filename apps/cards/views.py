@@ -5,8 +5,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from ..cards.serializers import CardSerializer
-
 from .utils import Util
+
 from .models import Card
 from .serializers import CardSerializer
 from ..list.models import List
@@ -26,7 +26,7 @@ class CardViewSet(viewsets.ModelViewSet):
             serializer = CardSerializer(list.card)
             return Response(status=status.HTTP_200_OK, data=serializer.data)
 
-        #if request.method == 'POST':
+        # if request.method == 'POST':
     @action(methods=['GET', 'POST', 'DELETE'], detail=True, url_path='userincard')
     def user(self, request, pk=None):
         card = self.get_object()
@@ -36,14 +36,14 @@ class CardViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_200_OK, data=serializer.data)
 
         if request.method == 'POST':
-            
+
             user_id = request.data['users_id']
             for user in user_id:
                 user = User.objects.get(id=int(user))
                 card.members.add(user)
-                #send correo
+                # send correo
                 email_body = 'Hola '+user.name+' as sido invitado a la tarjeta '+card.name
-                data = {'email_body': email_body, 
+                data = {'email_body': email_body,
                         'to_email': user.email,
                         'email_subject': 'Verify your email'}
                 Util.send_email(data)
