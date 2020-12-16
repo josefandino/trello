@@ -10,13 +10,14 @@ from ..boards.serializers import BoardSerializer
 
 
 class ListViewSet(viewsets.ModelViewSet):
-   queryset = List.objects.all()
-   serializer_class = ListSerializer
+    queryset = List.objects.all()
+    serializer_class = ListSerializer
 
-   @action(methods=['GET', '´POST', 'DELETE'], detail=True, url_path='list_board')
-   def board(self,request, pk=None):
-      list = self.get_object()
+    @action(methods=['GET', '´POST', 'DELETE'], detail=True, url_path='list_board')
+    def card(self, request, pk=None):
+        list = self.get_object()
 
-      if request.method == 'GET':
-         serializer = BoardSerializer(list.board)
-         return Response(status=status.HTTP_200_OK, data=serializer.data)
+        if request.method == 'GET':
+            serializer = ListSerializer(list.card)
+            return Response(status=status.HTTP_200_OK, data=serializer.data)
+        # if request.method == ''
