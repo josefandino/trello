@@ -22,7 +22,6 @@ class Test_board(APITestCase):
         self.assertEquals(len(Board.objects.all()), 1)
         self.assertEqual(self.board.members.all().first(), self.user)
     
-
 class Test_ApiBoard(APITestCase):
     def setUp(self):
         users = [
@@ -62,16 +61,53 @@ class Test_ApiBoard(APITestCase):
 
     def test_Default(self):
         #Default
-        response = self.client.get(f"{self.url}boards/")
+        action_query = f"{self.url}boards/"
+        
+        #GET
+        response = self.client.get(f"{action_query}")
         self.assertEquals(response.status_code, 200)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['name'], self.board.name)
+        
+        #POST
+        board_post = self.client.post(
+            f"{action_query}",
+            {
+                "name" : "Test 2",
+                "description": "Description...",
+                "members": [self.user.id]
+            }
+        )
+        self.assertEquals(board_post.status_code, 201)
+        self.assertEqual(board_post.data['name'], "Test 2")
+
+        #DELETE
+        board_delete = self.client.delete(f"{action_query}{self.board.id}")
+        self.assertEquals(board_delete.status_code, 301)
+        self.assertEqual(response.data['count'], 1)
 
     def test_instance(self):
         #Instance
-        instance = self.client.get(f"{self.url}boards/1/")
+        instance_query = f"{self.url}boards/1/"
+
+        #GET
+        instance = self.client.get(f"{instance_query}")
         self.assertEquals(instance.status_code, 200)
         self.assertEquals(instance.data['name'], self.board.name)
+
+        #PATCH
+        board_patch = self.client.patch(
+            f"{instance_query}",
+            { "name": "PATCH TEST" }
+        )
+        self.assertEquals(board_patch.status_code, 200)
+        self.assertEquals(board_patch.data['name'], "PATCH TEST")
+
+        #DELETE
+        board_delete = self.client.delete(f"{instance_query}")
+        self.assertEquals(board_delete.status_code, 204)
+        boards_get = self.client.get(f"{self.url}boards/")
+        self.assertEquals(boards_get.data['count'], 0)
 
     def test_action_user(self):
         #GET
@@ -96,3 +132,18 @@ class Test_ApiBoard(APITestCase):
         )
         self.assertEquals(user_delete.status_code, 200)
         self.assertEquals(self.board.members.get(id=2).name, "Pedro")
+
+    def test_action_lis(self):
+        #Action
+        action_query = f"{self.url}boards/1/lis/"
+
+        #GET
+        board_get = self.client.get(f"{action_query}")
+        self.assertEquals(board_get.status_code, 200)
+        self.assertEquals(len(board_get.data), 1)
+
+        #POST (PENDIENTE)
+        # board_post = self.client.post(
+        #     f"{action_query}",
+        #     {""}
+        # )

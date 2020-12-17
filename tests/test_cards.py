@@ -3,6 +3,7 @@ from apps.users.models import User
 from apps.boards.models import Board
 from apps.cards.models import Card
 from apps.list.models import List
+from apps.comments.models import Comment
 
 class Test_Card(APITestCase):
     def setUp(self):
@@ -33,7 +34,6 @@ class Test_Card(APITestCase):
         self.assertIs(self.card.name, "Card Test")
         self.assertEquals(len(Card.objects.all()), 1)
         self.assertEqual(self.card.list, self.list)
-    
 
 class Test_ApiCard(APITestCase):
     def setUp(self):
@@ -87,13 +87,41 @@ class Test_ApiCard(APITestCase):
             position = 1
         )
         self.card.members.add(self.user)
+        self.comment = Comment.objects.create(
+            message="Comentario Test",
+            list= self.list,
+            members=self.user,
+            card=self.card
+        )
 
     def test_Default(self):
         #Default
-        response = self.client.get(f"{self.url}cards/")
+        action_query = f"{self.url}cards/"
+
+        #GET
+        response = self.client.get(f"{action_query}")
         self.assertEquals(response.status_code, 200)
         self.assertEqual(response.data['count'], 1)
         self.assertEqual(response.data['results'][0]['name'], self.card.name)
+
+        #POST
+        card_post = self.client.post(
+            f"{action_query}",
+            {
+                "name":"Card Test",
+                "description":" Description...",
+                "list":self.list.id,
+                "members": [self.user.id],
+                "position": 1
+            }
+        )
+        self.assertEquals(card_post.status_code, 201)
+        self.assertEqual(card_post.data['name'], "Card Test")
+
+        #DELETE
+        card_delete = self.client.delete(f"{action_query}{self.card.id}")
+        self.assertEquals(card_delete.status_code, 301)
+        self.assertEqual(response.data['count'], 1)
 
     def test_instance(self):
         #Instance
@@ -103,17 +131,36 @@ class Test_ApiCard(APITestCase):
         instance = self.client.get(f"{action_query}")
         self.assertEquals(instance.status_code, 200)
         self.assertEquals(instance.data['name'], self.card.name)
-    
-    # FALTA ARREGLAR VIEW ACTION
-    # FALTAN LOS FILTROS
-    
-    # def test_action_list(self):
-        #Action
-        # action_query = f"{self.url}cards/1/userincard/"
 
-        # list_get = self.client.get(f"{action_query}")
-        # self.assertEquals(list_get.status_code, 200)
-        # self.assertEqual(list_get.data[0]['name'], self.list.name)
+    def test_action_comment(self):
+        #Action
+        action_query = f"{self.url}cards/1/commentincard/"
+
+        #GET
+        comment_get = self.client.get(f"{action_query}")
+        self.assertEquals(comment_get.status_code, 200)
+        self.assertEquals(len(comment_get.data), 1)
+
+        #POST
+        comment_post = self.client.post(
+            f"{action_query}",
+            {"comments_id": [self.comment.id]}
+        )
+        self.assertEquals(comment_post.status_code,200)
+        comments_get = self.client.get(f"{action_query}")
+        self.assertEquals(len(comments_get.data), 1)
+
+        #DELETE
+        # PENDIENTE POR ERROR: 
+        # File "E:\DOCS\Python\Proyectos\trello\apps\cards\views.py",
+        # line 71, in comment card.comments.remove(comment)
+        # AttributeError: 'RelatedManager' object has no attribute 'remove'
+
+        # comments_delete = self.client.delete(
+        #     f"{action_query}",
+        #     {"comments_id": [self.comment.id]}
+        # )
+        # self.assertEquals(comments_delete.status_code, 200)
 
     def test_action_user(self):
         #Action
