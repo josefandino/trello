@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from ..cards.serializers import CardSerializer
@@ -19,6 +20,7 @@ from ..users.serializers import UserSerializer
 class CardViewSet(viewsets.ModelViewSet):
     queryset = Card.objects.all()
     serializer_class = CardSerializer
+    permission_classes = (AllowAny,)
 
     @action(methods=['GET', 'POST', 'DELETE'], detail=True, url_path='userincard')
     def user(self, request, pk=None):
@@ -49,24 +51,4 @@ class CardViewSet(viewsets.ModelViewSet):
                 card.members.remove(user)
             return Response(status=status.HTTP_200_OK)
 
-    @action(methods=['GET', 'POST', 'DELETE'], detail=True, url_path='commentincard')
-    def comment(self, request, pk=None):
-        card = self.get_object()
 
-        if request.method == 'GET':
-            serializer = CommentSerializer(card.comments, many=True)
-            return Response(status=status.HTTP_200_OK, data=serializer.data)
-
-        if request.method == 'POST':
-            comment_id = request.data['comments_id']
-            for comm in comment_id:
-                comment = Comment.objects.get(id=int(comm))
-                card.comments.add(comment)
-            return Response(status=status.HTTP_200_OK)
-
-        if request.method == 'DELETE':
-            comment_id = request.data['comments_id']
-            for comm in comment_id:
-                comment = Comment.objects.get(id=int(comm))
-                card.comments.remove(comment)
-            return Response(status=status.HTTP_200_OK)

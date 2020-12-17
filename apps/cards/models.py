@@ -1,7 +1,9 @@
 from django.db import models
 
 from django.utils import timezone
-from ..users.models import User
+# from ..users.models import User
+# from rest_framework_simplejwt.state import User
+from django.contrib.auth.models import User
 from ..list.models import List
 
 

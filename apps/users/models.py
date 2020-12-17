@@ -61,13 +61,14 @@ from django.utils import timezone
 # Apellidos (Texto)
 # ○ Correo (Texto)
 # ○ Contraseña (Texto)
-
+#
 class User(models.Model):
-    name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
-    email = models.EmailField()
-    password = models.CharField(max_length=200)
-    timestamp = models.DateTimeField(default=timezone.now)
+     name = models.CharField(max_length=20)
+     last_name = models.CharField(max_length=20)
+     email = models.EmailField()
+     password = models.CharField(max_length=200)
+     timestamp = models.DateTimeField(default=timezone.now)
 
-    def __str__(self):
-        return '{0},{1}'.format(self.last_name, self.name)
+     def __str__(self):
+         return '{0},{1}'.format(self.last_name, self.name)
+

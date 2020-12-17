@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from ..list.models import List
@@ -17,6 +18,7 @@ from ..users.serializers import UserSerializer
 class BoardViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
+    permission_classes = (AllowAny,)
 
     @action(methods=['GET', 'POST', 'DELETE'], detail=True)
     def user(self, request, pk=None):
