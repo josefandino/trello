@@ -36,9 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # #aplication de terceros
-    'rest_framework',
-    'corsheaders',  # new
-    'drf_yasg',
+     'rest_framework',
+     'corsheaders',  # new
+     'drf_yasg',
 
     # Aplications local
     'apps.boards',
