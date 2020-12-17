@@ -1,4 +1,5 @@
 import os
+from .db import db
 #from .db import db
 # import os
 from pathlib import Path
@@ -31,11 +32,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # #aplication de terceros
-     'rest_framework',
-     'corsheaders',  # new
-     'drf_yasg',
+    'rest_framework',
+    'corsheaders',  # new
+    'drf_yasg',
 
-    #Aplications local
+    # Aplications local
     'apps.boards',
     'apps.comments',
     'apps.list',
@@ -89,17 +90,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'trello2',
-        'USER': 'postgres',
-        'PASSWORD': '12345',
-        'HOST': '127.0.0.1',
-        'PORT': '5432'
-    }
-}
-
+DATABASES = db
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -144,7 +135,7 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,"media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
