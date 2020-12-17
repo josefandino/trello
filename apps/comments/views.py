@@ -17,5 +17,5 @@ class CommentViewSet(viewsets.ModelViewSet):
     def user(self, request, pk=None):
         comment = self.get_object()
         if request.method == 'GET':
-            serializer = UserSerializer(comment.user)
+            serializer = UserSerializer(comment.members)
             return Response(status=status.HTTP_200_OK, data=serializer.data)
