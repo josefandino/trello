@@ -11,9 +11,11 @@ class Comment(models.Model):
     message = models.CharField(max_length=150)
     timestamp = models.DateTimeField('Fecha registro', default=timezone.now)
 
-    members = models.ForeignKey(User, on_delete=models.PROTECT, related_name='comments')
-    card = models.ForeignKey(Card, on_delete=models.PROTECT, related_name='comments')
-    list = models.ForeignKey(List, on_delete=models.PROTECT, related_name='comments')
+    members = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    card = models.ForeignKey(Card, on_delete=models.CASCADE, related_name='comments')
+    list = models.ForeignKey(List, on_delete=models.CASCADE, related_name='comments')
 
     def __str__(self):
         return self.message
+
+
