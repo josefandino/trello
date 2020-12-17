@@ -13,7 +13,6 @@ class Comment(models.Model):
 
     members = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
     card = models.ForeignKey(Card, on_delete=models.CASCADE, related_name='comments')
-    list = models.ForeignKey(List, on_delete=models.CASCADE, related_name='comments')
 
     def __str__(self):
         return self.message

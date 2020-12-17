@@ -69,3 +69,26 @@ class BoardViewSet(viewsets.ModelViewSet):
                 list.delete()
 
             return Response(status=status.HTTP_200_OK)
+
+    @action(methods=['GET','POST','DELETE'], detail=True)
+    def favorite(self, req, pk=None):   
+        """ Cómo usuario quiero ver la lista de mis tableros y distinguir aquellos seleccionados
+        como favoritos. """
+        board = self.get_object()
+        
+        if req.method == 'GET':
+            serializer = UserSerializer(board.favorite, many=True)
+            return Response(status = status.HTTP_200_OK, data = serializer.data)
+        
+        if req.method in ['POST','DELETE']:
+            users_id = req.data['users']
+            for id in users_id:
+                user = User.objects.get(id=id)
+                if req.method == 'POST':
+                    board.favorite.add(user)                    
+                    serializer = UserSerializer(board.favorite, many=True)
+                    return Response(status = status.HTTP_201_CREATED, data = serializer.data)
+                elif req.method == 'DELETE':
+                    board.favorite.remove(user)
+                    serializer = UserSerializer(board.favorite, many=True)
+                    return Response(status = status.HTTP_204_NO_CONTENT, data = serializer.data)
