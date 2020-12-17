@@ -42,22 +42,30 @@ class BoardViewSet(viewsets.ModelViewSet):
 
     @action(methods=['GET', 'POST', 'DELETE'], detail=True)
     def lis(self, request, pk=None):
-        board = self.get_object()
+        boar = self.get_object()
 
+        # if request.method == 'GET':
+        #     serializer = ListSerializer(board.list)
+        #     return Response(status=status.HTTP_200_OK, data=serializer.data)
         if request.method == 'GET':
-            serializer = ListSerializer(board.list)
-            return Response(status=status.HTTP_200_OK, data=serializer.data)
+            board = Board.objects.filter(id=boar.id)
+            serialized = BoardSerializer(board, many=True)
+            return Response(
+                status=status.HTTP_200_OK,
+                data=serialized.data
+            )
 
         if request.method == 'POST':
             list_id = request.data['list_id']
             for list in list_id:
                 list = List.objects.get(id=int(list))
-                board.list.add(list)
+                list.create()
             return Response(status=status.HTTP_200_OK)
 
         if request.method == 'DELETE':
             list_id = request.data['list_id']
             for list in list_id:
-                list = List.objects.get(id=int(list))
-                board.list.remove(list)
+                list= List.objects.get(id=int(list))
+                list.delete()
+
             return Response(status=status.HTTP_200_OK)
