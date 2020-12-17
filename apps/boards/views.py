@@ -18,27 +18,30 @@ class BoardViewSet(viewsets.ModelViewSet):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
 
-    @action(methods=['GET', 'POST', 'DELETE'], detail=True)
-    def user(self, request, pk=None):
+    @action(methods=['GET','POST','DELETE'], detail=True)
+    def invite(self, req, pk=None):   
+        """ Como usuario quiero invitar a otros usuarios (registrados y no registrados) como
+        miembros del tablero para que puedan acceder a ese proyecto.        
+        queda pendiente :
+        Pero no pueden editar los detalles del mismo, únicamente agregar elementos."""
         board = self.get_object()
-
-        if request.method == 'GET':
+        
+        if req.method == 'GET':
             serializer = UserSerializer(board.members, many=True)
-            return Response(status=status.HTTP_200_OK, data=serializer.data)
-
-        if request.method == 'POST':
-            user_id = request.data['users_id']
-            for user in user_id:
-                user = User.objects.get(id=int(user))
-                board.members.add(user)
-            return Response(status=status.HTTP_200_OK)
-
-        if request.method == 'DELETE':
-            user_id = request.data['users_id']
-            for user in user_id:
-                user = User.objects.get(id=int(user))
-                board.members.remove(user)
-            return Response(status=status.HTTP_200_OK)
+            return Response(status = status.HTTP_200_OK, data = serializer.data)
+        
+        if req.method in ['POST','DELETE']:
+            users_id = req.data['users']
+            for id in users_id:
+                user = User.objects.get(id=id)
+                if req.method == 'POST':
+                    board.members.add(user)                    
+                    serializer = UserSerializer(board.members, many=True)
+                    return Response(status = status.HTTP_201_CREATED, data = serializer.data)
+                elif req.method == 'DELETE':
+                    board.members.remove(user)
+                    serializer = UserSerializer(board.members, many=True)
+                    return Response(status = status.HTTP_204_NO_CONTENT, data = serializer.data)
 
     @action(methods=['GET', 'POST', 'DELETE'], detail=True)
     def lis(self, request, pk=None):
