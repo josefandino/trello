@@ -15,6 +15,8 @@ from ..users.serializers import UserSerializer
 
 
 class BoardViewSet(viewsets.ModelViewSet):
+    """ Cómo usuario quiero crear un tablero desde la página principal para gestionar un
+    proyecto """ 
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
 
@@ -95,3 +97,20 @@ class BoardViewSet(viewsets.ModelViewSet):
                     board.favorite.remove(user)
                     serializer = UserSerializer(board.favorite, many=True)
                     return Response(status = status.HTTP_204_NO_CONTENT, data = serializer.data)
+
+class BoardListUser(ListAPIView):
+    """ Cómo usuario quiero ver la lista de mis tableros y distinguir aquellos seleccionados
+    como favoritos. """ 
+
+    queryset = Board.objects.all()
+    serializer_class = BoardSerializer
+    #permission_classes = (IsAuthenticated,)    
+    
+    def get_queryset(self):       
+        # query = {}
+        # query['subscribers__id'] = self.request.user.id        
+        # self.queryset = self.queryset.filter(**query)
+        # return super().get_queryset()
+        
+        my_subscritions = Newsletter.objects.filter(subscribers=self.request.user.id)
+        return my_subscritions

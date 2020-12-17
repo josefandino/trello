@@ -14,9 +14,3 @@ class ListViewSet(viewsets.ModelViewSet):
     """ Cómo usuario quiero agregar listas a mi tablero para agregar tareas a cada una. """
     queryset = List.objects.all()
     serializer_class = ListSerializer
-
-
-
-
-
-
