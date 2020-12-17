@@ -14,7 +14,6 @@ class UserSerializer(serializers.ModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
 
     password = serializers.CharField(max_length = 100,min_length=4,write_only=True)
-
     class Meta:
         model = User
         #fields = '__all__'
@@ -31,13 +30,6 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return User.objects.create_user(**validated_data)
-
-class EmailVerificationSerializer(serializers.ModelSerializer):
-
-    token = serializers.CharField(max_length=555)
-    class Meta:
-        model = User
-        fields = ['token']
 
 class LoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=255,min_length=3)

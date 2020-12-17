@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from ..boards.serializers import BoardSerializer
 from .models import User
-from .serializers import UserSerializer, RegisterSerializer, EmailVerificationSerializer, LoginSerializer
+from .serializers import UserSerializer, RegisterSerializer, LoginSerializer
 from rest_framework import viewsets, status, generics, mixins
 from rest_framework.decorators import action
 

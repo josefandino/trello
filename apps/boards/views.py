@@ -4,6 +4,11 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView
+from rest_framework.permissions import(
+    AllowAny,
+    IsAuthenticated,
+    IsAdminUser,
+)
 
 from ..list.models import List
 from ..list.serializers import ListSerializer
@@ -105,7 +110,7 @@ class BoardListUser(ListAPIView):
 
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
-    #permission_classes = (IsAuthenticated,)    
+    permission_classes = (IsAuthenticated,)    
     
     def get_queryset(self):       
         # query = {}
@@ -113,5 +118,5 @@ class BoardListUser(ListAPIView):
         # self.queryset = self.queryset.filter(**query)
         # return super().get_queryset()
         
-        my_subscritions = Newsletter.objects.filter(subscribers=self.request.user.id)
+        my_subscritions = Board.objects.filter(favorite=self.request.user.id)
         return my_subscritions
