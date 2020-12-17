@@ -118,5 +118,5 @@ class BoardListUser(ListAPIView):
         # self.queryset = self.queryset.filter(**query)
         # return super().get_queryset()
         
-        my_subscritions = Board.objects.filter(favorite=self.request.user.id)
+        my_subscritions = Board.objects.filter(owner=self.request.user.id)
         return my_subscritions
