@@ -20,7 +20,7 @@ class CardViewSet(viewsets.ModelViewSet):
     """ Cómo usuario despues de agregar listas a mi tablero pueda agregar tareas a cada una."""
     queryset = Card.objects.all()
     serializer_class = CardSerializer
-
+    
     @action(methods=['GET', 'POST', 'DELETE'], detail=True, url_path='userincard')
     def user(self, request, pk=None):
         """ Cómo usuario quiero agregar tarjetas a cada lista para poder asignar responsables de
