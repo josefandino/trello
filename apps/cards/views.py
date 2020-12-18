@@ -4,9 +4,9 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from ..cards.serializers import CardSerializer
-from .utils import Util
-
+# from ..cards.serializers import CardSerializer
+# from .utils import Util
+#
 from .models import Card
 from .serializers import CardSerializer
 from ..comments.models import Comment
