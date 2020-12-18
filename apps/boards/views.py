@@ -45,42 +45,14 @@ class BoardViewSet(viewsets.ModelViewSet):
                 if req.method == 'POST':
                     board.members.add(user)                    
                     serializer = UserSerializer(board.members, many=True)
-                    return Response(status = status.HTTP_201_CREATED, data = serializer.data)
+                    code = status.HTTP_201_CREATED
                 elif req.method == 'DELETE':
                     board.members.remove(user)
-                    serializer = UserSerializer(board.members, many=True)
-                    return Response(status = status.HTTP_204_NO_CONTENT, data = serializer.data)
+                    code = status.HTTP_204_NO_CONTENT
+            serializer = UserSerializer(board.members, many=True)
+            return Response(status = code , data = serializer.data)
 
-    @action(methods=['GET', 'POST', 'DELETE'], detail=True)
-    def lis(self, request, pk=None):
-        boar = self.get_object()
-
-        # if request.method == 'GET':
-        #     serializer = ListSerializer(board.list)
-        #     return Response(status=status.HTTP_200_OK, data=serializer.data)
-        if request.method == 'GET':
-            board = Board.objects.filter(id=boar.id)
-            serialized = BoardSerializer(board, many=True)
-            return Response(
-                status=status.HTTP_200_OK,
-                data=serialized.data
-            )
-
-        if request.method == 'POST':
-            list_id = request.data['list_id']
-            for list in list_id:
-                list = List.objects.get(id=int(list))
-                list.create()
-            return Response(status=status.HTTP_200_OK)
-
-        if request.method == 'DELETE':
-            list_id = request.data['list_id']
-            for list in list_id:
-                list= List.objects.get(id=int(list))
-                list.delete()
-
-            return Response(status=status.HTTP_200_OK)
-
+    
     @action(methods=['GET','POST','DELETE'], detail=True)
     def favorite(self, req, pk=None):   
         """ Cómo usuario quiero ver la lista de mis tableros y distinguir aquellos seleccionados
@@ -93,16 +65,30 @@ class BoardViewSet(viewsets.ModelViewSet):
         
         if req.method in ['POST','DELETE']:
             users_id = req.data['users']
+            code = status.HTTP_404_NOT_FOUND
             for id in users_id:
-                user = User.objects.get(id=id)
-                if req.method == 'POST':
-                    board.favorite.add(user)                    
-                    serializer = UserSerializer(board.favorite, many=True)
-                    return Response(status = status.HTTP_201_CREATED, data = serializer.data)
-                elif req.method == 'DELETE':
-                    board.favorite.remove(user)
-                    serializer = UserSerializer(board.favorite, many=True)
-                    return Response(status = status.HTTP_204_NO_CONTENT, data = serializer.data)
+                try:
+                    user = User.objects.get(id=id)
+                    if req.method == 'POST':
+                        board.favorite.remove(user)
+                        code = status.HTTP_201_CREATED
+                    elif req.method == 'DELETE':
+                        board.favorite.remove(user)
+                        code = status.HTTP_204_NO_CONTENT
+                except :
+                    continue
+
+            serializer = UserSerializer(board.favorite, many=True)
+            return Response(status = code, data = serializer.data)
+
+        # if req.method == 'POST':
+        #     users_id = req.data['user_ids']
+        #     for ids in users_id:
+        #         print(ids)
+        #         user = User.objects.get(id=ids)
+        #         board.favorite.add(user)
+        #     serializer = UserSerializer(board.favorite, many=True)
+        #     return Response(status=status.HTTP_200_OK, data=serializer.data)
 
 class BoardListUser(ListAPIView):
     """ Cómo usuario quiero ver la lista de mis tableros y distinguir aquellos seleccionados
@@ -112,7 +98,8 @@ class BoardListUser(ListAPIView):
     serializer_class = BoardSerializer
     permission_classes = (IsAuthenticated,)    
     
-    def get_queryset(self):       
+    def get_queryset(self):    
+        """ captura el id del user logeado y se pasa como parametro a la consulta de Board"""   
         # query = {}
         # query['subscribers__id'] = self.request.user.id        
         # self.queryset = self.queryset.filter(**query)
