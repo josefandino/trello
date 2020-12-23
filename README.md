@@ -83,6 +83,10 @@ Entregables
 # configuracion: 
   ● En la carpeta project se debe crear un archivo db.py 
   ● importamos estas librerias: os y pathlib
+    
+    import os
+    
+    from pathlib import Path
 
         BASE_DIR = Path(__file__).resolve().parent.parent
       db = {

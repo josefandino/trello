@@ -10,12 +10,7 @@ from ..users.serializers import UserSerializer
 
 
 class CommentViewSet(viewsets.ModelViewSet):
+    """Cómo usuario quiero agregar comentarios en cada tarea para poder comunicarme con
+    los miembros o responsables. """
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-
-    @action(methods=['GET'], detail=True, url_path='comentariodeusuario')
-    def user(self, request, pk=None):
-        comment = self.get_object()
-        if request.method == 'GET':
-            serializer = UserSerializer(comment.user)
-            return Response(status=status.HTTP_200_OK, data=serializer.data)
