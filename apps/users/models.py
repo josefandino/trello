@@ -6,8 +6,9 @@ from django.utils import timezone
 
 from django.utils.translation import gettext as _
 
-
 from rest_framework_simplejwt.tokens import RefreshToken
+
+
 class UserManager(BaseUserManager):
     def create_user(self, username, email, password=None):
         if username is None:
@@ -29,6 +30,7 @@ class UserManager(BaseUserManager):
         user.is_staff = True
         user.save()
         return user
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=255, unique=True, db_index=True)

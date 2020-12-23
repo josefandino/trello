@@ -17,4 +17,4 @@ class Card(models.Model):
 
     def __str__(self):
         return self.name
-#basepermision drf
+# basepermision drf
