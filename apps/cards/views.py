@@ -38,7 +38,7 @@ class CardViewSet(viewsets.ModelViewSet):
                 user = User.objects.get(id=int(user))
                 card.members.add(user)
                 # send correo
-                email_body = 'Hola '+user.name+' as sido invitado a la tarjeta '+card.name
+                email_body = 'Hola '+user.name+' has sido invitado a la tarjeta '+card.name
                 data = {'email_body': email_body,
                         'to_email': user.email,
                         'email_subject': 'Verify your email'}
