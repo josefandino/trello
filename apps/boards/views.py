@@ -29,7 +29,7 @@ class BoardViewSet(viewsets.ModelViewSet):
     @action(methods=['GET', 'POST', 'DELETE'], detail=True)
     def invite(self, req, pk=None):
         """ Como usuario quiero invitar a otros usuarios (registrados y no registrados) como
-        miembros del tablero para que puedan acceder a ese proyecto.        
+        miembros del tablero para que puedan acceder a ese proyecto.
         queda pendiente :
         Pero no pueden editar los detalles del mismo, únicamente agregar elementos."""
         board = self.get_object()
@@ -40,8 +40,10 @@ class BoardViewSet(viewsets.ModelViewSet):
 
         if req.method in ['POST', 'DELETE']:
             users_id = req.data['users']
+
             for id in users_id:
                 user = User.objects.get(id=id)
+
                 if req.method == 'POST':
                     board.members.add(user)
                     serializer = UserSerializer(board.members, many=True)
@@ -51,9 +53,9 @@ class BoardViewSet(viewsets.ModelViewSet):
                     serializer = UserSerializer(board.members, many=True)
                     return Response(status=status.HTTP_204_NO_CONTENT, data=serializer.data)
 
-    @action(methods=['GET', 'POST', 'DELETE'], detail=True)
-    def lis(self, request, pk=None):
-        boar = self.get_object()
+    # @action(methods=['GET', 'POST', 'DELETE'], detail=True)
+    # def lis(self, request, pk=None):
+    #     boar = self.get_object()
 
         # if request.method == 'GET':
         #     serializer = ListSerializer(board.list)
@@ -115,7 +117,7 @@ class BoardListUser(ListAPIView):
 
     def get_queryset(self):
         # query = {}
-        # query['subscribers__id'] = self.request.user.id        
+        # query['subscribers__id'] = self.request.user.id
         # self.queryset = self.queryset.filter(**query)
         # return super().get_queryset()
 

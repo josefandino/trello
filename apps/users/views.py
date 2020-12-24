@@ -14,6 +14,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 #                    mixins.DestroyModelMixin,
 #                    mixins.ListModelMixin,
 #                    GenericViewSet):
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer

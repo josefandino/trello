@@ -15,6 +15,6 @@ class List(models.Model):
         return self.name
 
 # ○ Nombre (Texto)
-#   ○ Tablero (Llave foránea) 
+#   ○ Tablero (Llave foránea)
 #   ○ Fecha de creación (Fecha y hora)
 #   ○ Posición (Entero)
