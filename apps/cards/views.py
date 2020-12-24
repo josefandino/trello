@@ -4,9 +4,9 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from ..cards.serializers import CardSerializer
-from .utils import Util
-
+# from ..cards.serializers import CardSerializer
+# from .utils import Util
+#
 from .models import Card
 from .serializers import CardSerializer
 from ..comments.models import Comment
@@ -20,7 +20,7 @@ class CardViewSet(viewsets.ModelViewSet):
     """ Cómo usuario despues de agregar listas a mi tablero pueda agregar tareas a cada una."""
     queryset = Card.objects.all()
     serializer_class = CardSerializer
-
+    
     @action(methods=['GET', 'POST', 'DELETE'], detail=True, url_path='userincard')
     def user(self, request, pk=None):
         """ Cómo usuario quiero agregar tarjetas a cada lista para poder asignar responsables de
