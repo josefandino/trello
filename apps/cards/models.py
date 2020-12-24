@@ -13,7 +13,8 @@ class Card(models.Model):
     position = models.IntegerField(default=None)
 
     members = models.ManyToManyField(User, related_name='card')
-    list = models.ForeignKey(List, on_delete=models.PROTECT, related_name='card')
+    list = models.ForeignKey(List, on_delete=models.CASCADE, related_name='card')
 
     def __str__(self):
         return self.name
+# basepermision drf
