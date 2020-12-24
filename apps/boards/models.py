@@ -9,10 +9,10 @@ class Board(models.Model):
     description = models.CharField(max_length=150, blank=False, null=False)
     timestamp = models.DateTimeField(default=timezone.now)
     visibility = models.BooleanField(default=False)
-
-    # favorite = models.ManyToManyField(User, through="FavoriteBoard", related_name='board')
-
-    members = models.ManyToManyField(User, related_name='board')
+    
+    favorite = models.ManyToManyField(User, related_name='board_f')
+    owner = models.ForeignKey(User, related_name='board', on_delete=models.CASCADE, null=True)
+    members = models.ManyToManyField(User, related_name='boards')
 
     def __str__(self):
         return self.name

@@ -2,13 +2,14 @@ from rest_framework.test import APITestCase
 from apps.users.models import User
 from apps.boards.models import Board
 
+
 class Test_board(APITestCase):
     def setUp(self):
         self.user = User.objects.create(
             name="User Test",
             lastname="Lastname",
             email="user@test.com",
-            password= "1234"
+            password="1234"
         )
         self.board = Board.objects.create(
             name="Board Test",
@@ -18,10 +19,10 @@ class Test_board(APITestCase):
 
     def test_board(self):
         self.assertIsInstance(self.board, Board)
-        self.assertIs(self.board.name, "Board Test" )
+        self.assertIs(self.board.name, "Board Test")
         self.assertEquals(len(Board.objects.all()), 1)
         self.assertEqual(self.board.members.all().first(), self.user)
-    
+
 
 class Test_ApiBoard(APITestCase):
     def setUp(self):
@@ -33,6 +34,7 @@ class Test_ApiBoard(APITestCase):
         )
         users = [
             {
+<<<<<<< HEAD
                 "name":"Alberto",
                 "lastname":"Hernandez",
                 "email":"Albert@test.com",
@@ -43,6 +45,24 @@ class Test_ApiBoard(APITestCase):
                 "lastname":"Pelaez",
                 "email":"pepe@test.com",
                 "password":"1234"
+=======
+                "name": "Alberto",
+                "last_name": "Hernandez",
+                "email": "Albert@test.com",
+                "password": "1234"
+            },
+            {
+                "name": "Pedro",
+                "last_name": "Pelaez",
+                "email": "pepe@test.com",
+                "password": "1234"
+            },
+            {
+                "name": "Carmen",
+                "last_name": "Perez",
+                "email": "carmen@test.com",
+                "password": "1234"
+>>>>>>> dc91238d9dbf020f609b6cd4944f0284f0e17dcb
             }
         ]
         for i in users:
@@ -67,18 +87,19 @@ class Test_ApiBoard(APITestCase):
         self.url = "http://127.0.0.1:8000/"
 
     def test_Default(self):
-        #Default
+        # Default
         response = self.client.get(f"{self.url}boards/")
         self.assertEquals(response.status_code, 200)
         self.assertEqual(response.data['count'], 4)
         self.assertEqual(response.data['results'][0]['name'], self.board.name)
 
     def test_instance(self):
-        #Instance
+        # Instance
         instance = self.client.get(f"{self.url}boards/1/")
         self.assertEquals(instance.status_code, 200)
         self.assertEquals(instance.data['name'], self.board.name)
 
+<<<<<<< HEAD
     def test_action(self):
         #(user)GET
         user_get = self.client.get(f"{self.url}boards/1/user/")
@@ -98,3 +119,28 @@ class Test_ApiBoard(APITestCase):
             {"users_id":[2,3]}
         )
         self.assertEquals(user_delete.status_code, 200)
+=======
+    def test_action_user(self):
+        # GET
+        user_get = self.client.get(f"{self.url}boards/1/user/")
+        self.assertEquals(user_get.status_code, 200)
+        self.assertEqual(user_get.data[0]['name'], self.user.name)
+        self.assertEquals(self.board.members.get(id=1), self.user)
+        self.assertEquals(self.board.id, 1)
+
+        # POST
+        user_post = self.client.post(
+            f"{self.url}boards/1/user/",
+            {"users_id": [2]}
+        )
+        self.assertEquals(user_post.status_code, 200)
+        self.assertEquals(len(self.board.members.all()), 2)
+
+        # DELETE
+        user_delete = self.client.delete(
+            f"{self.url}boards/1/user/",
+            {"users_id": [1]}
+        )
+        self.assertEquals(user_delete.status_code, 200)
+        self.assertEquals(self.board.members.get(id=2).name, "Pedro")
+>>>>>>> dc91238d9dbf020f609b6cd4944f0284f0e17dcb
